@@ -52,3 +52,5 @@
         enabled: yes
         state: started
         user: your-username-here  # Replace with the appropriate user if needed
+
+#ansible-playbook deploy.yml
