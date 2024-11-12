@@ -23,7 +23,7 @@
 
     - name: Clone the repository
       git:
-        repo: 'https://github.com/sabarivasan/graphql'
+        repo: 'https://github.com/k-s-vicky/graphql'
         dest: /var/www/task-manager-api
         version: main
 
