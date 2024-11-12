@@ -87,6 +87,17 @@ mutation {
 }
 ```
 
----
+# Setup Instructions for PostgreSQL and Environment Variables
 
-You can use these commands in GraphiQL or any api client interact with the Task model.
+## Step 1: Install PostgreSQL
+
+## Step 2: Set Up the Environment File
+
+   ```plaintext
+   DATABASE_URL=postgres://your_postgres_url
+   ```
+
+3. Save the `.env` file.
+
+
+
