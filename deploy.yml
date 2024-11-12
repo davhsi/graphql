@@ -1,0 +1,54 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Update APT package manager
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    # Optionally, you can add the installation of Node.js, npm, and MongoDB if required
+    # - name: Install Node.js and npm
+    #   apt:
+    #     name: 
+    #       - nodejs
+    #       - npm
+    #     state: present
+
+    # - name: Install MongoDB (if needed)
+    #   apt:
+    #     name: mongodb
+    #     state: present
+
+    - name: Clone the repository
+      git:
+        repo: 'https://github.com/sabarivasan/graphql'
+        dest: /var/www/task-manager-api
+        version: main
+
+    - name: Install project dependencies
+      npm:
+        path: /var/www/task-manager-api
+        state: present
+
+    - name: Install PM2 globally
+      npm:
+        name: pm2
+        global: yes
+
+    - name: Start the application with PM2
+      command: pm2 start src/app.js --name task-manager
+      args:
+        chdir: /var/www/task-manager-api
+
+    - name: Save PM2 process list
+      command: pm2 save
+
+    # Optionally, restart PM2 service to ensure it's running after reboot
+    - name: Ensure PM2 service is enabled and running
+      systemd:
+        name: pm2
+        enabled: yes
+        state: started
+        user: your-username-here  # Replace with the appropriate user if needed
